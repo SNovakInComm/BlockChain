@@ -1,0 +1,12 @@
+$ cat .gitignore
+
+/*
+!.gitignore
+!*.sln
+
+
+!/Building_Blockchain
+/Building_Blockchain/*
+!/Building_Blockchain/*.cpp
+!/Building_Blockchain/*.h
+!/Building_Blockchain/*vcxproj*

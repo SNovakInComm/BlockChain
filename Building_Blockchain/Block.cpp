@@ -8,6 +8,8 @@
 Block::Block()
 {
 	CommonInit();
+	for (int i = 0; i < HASH_BYTE_LENGTH; i++)
+		prevBlockHash[i] = 0;
 }
 
 

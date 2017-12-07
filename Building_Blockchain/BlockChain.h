@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "Block.h"
 
 class BlockChain
@@ -13,11 +14,13 @@ public:
 
 	// ------------------------- Public Methods
 
-	void addBlock(Block* blockToAdd);
+	void AddBlock(string* blockToAdd);
+
+	vector<Block*> blocks;
 
 private:
 	// ------------------------- Private Members
-	vector<Block> theChain;
+
 
 	// ------------------------- Private Methods
 

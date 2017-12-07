@@ -15,7 +15,7 @@ class Block
 public:
 	// ------------------------- Constructors
 	Block();
-	Block(string* dataToHash);
+	Block(string* dataToHash, unsigned char *prevBlockHash);
 	~Block();
 
 	void CommonInit();
@@ -23,11 +23,18 @@ public:
 	// ------------------------- Public Members
 	bTimeStamp timestamp;
 	shared_ptr<string> data;
-	unsigned char prevBlockHash[HASH_BYTE_LENGTH];
+	unsigned char * prevBlockHash;
 	unsigned char hash[HASH_BYTE_LENGTH];
+	unsigned long long nonce;
 
 	// ------------------------- Public Methods
 	void SetHash();
+
+	void SetHash(unsigned char* hash);
+
+	void PrintHash();
+
+	void PrintPrevHash();
 
 protected:
 

@@ -10,12 +10,16 @@ Block::Block()
 	CommonInit();
 }
 
+Block::Block(ifstream* fileStream)
+{
+	ReadFromStream(fileStream);
+}
 
 Block::Block(string* dataToHash, unsigned char *PrevBlockHash)
 {
 	CommonInit();
 	data = make_shared<string>(*dataToHash);
-	//copy(prevBlockHash, this->prevBlockHash);
+
 	if (PrevBlockHash)
 	{
 		prevBlockHash = (unsigned char *)malloc(sizeof(unsigned char) * HASH_BYTE_LENGTH);
@@ -85,8 +89,9 @@ void Block::PrintHash()
 {
 	for (int i = 0; i < HASH_BYTE_LENGTH; i++)
 	{
-		printf("%x", hash[i]);
+		printf("%02X", hash[i]);
 	}
+	printf("\n");
 }
 
 void Block::PrintPrevHash()
@@ -95,11 +100,54 @@ void Block::PrintPrevHash()
 	{
 		for (int i = 0; i < HASH_BYTE_LENGTH; i++)
 		{
-			printf("%x", prevBlockHash[i]);
+			printf("%02X", prevBlockHash[i]);
 		}
+		printf("\n");
 	}
 	else
 	{
 		printf("nullptr");
 	}
+}
+
+void Block::WriteToStream(ofstream* stream)
+{
+	size_t dataLength = data->size();
+	stream->write((char*)&timestamp, sizeof(bTimeStamp));
+	stream->write((char*)&dataLength, sizeof(size_t));
+	stream->write(data->c_str(), data->size());
+	if (prevBlockHash == nullptr)
+		*stream << '0';
+	else
+	{
+		*stream << '1';
+		stream->write((char*)prevBlockHash, HASH_BYTE_LENGTH);
+	}
+	stream->write((char*)hash, HASH_BYTE_LENGTH);
+	stream->write((char*)&nonce, sizeof(nonce));
+}
+
+void Block::ReadFromStream(ifstream* stream)
+{
+	size_t dataLength;
+	
+	string tempData;
+	char isGenesis;
+
+	stream->read((char*)&timestamp, sizeof(bTimeStamp));
+	stream->read((char*)&dataLength, sizeof(size_t));
+	tempData.resize(dataLength);
+	stream->read((char*)tempData.c_str(), dataLength);
+	data = make_shared<string>(tempData);
+	stream->read(&isGenesis, 1);
+	if (isGenesis == '0')
+		prevBlockHash = nullptr;
+	else
+	{
+		prevBlockHash = (unsigned char *)malloc(sizeof(unsigned char) * (HASH_BYTE_LENGTH + 1));
+		stream->read((char*)prevBlockHash, HASH_BYTE_LENGTH);
+		prevBlockHash[HASH_BYTE_LENGTH] = '\0';
+	}
+	stream->read((char*)hash, HASH_BYTE_LENGTH);
+	stream->read((char*)&nonce, sizeof(nonce));
 }

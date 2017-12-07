@@ -20,6 +20,13 @@ ProofOfWork::~ProofOfWork()
 // ------------------------- Public Method
 // --------------------------------------------------
 
+void ProofOfWork::Prove(Block* blockToProve, unsigned int zeros)
+{
+	unsigned char criteria[HASH_BYTE_LENGTH];
+	SetCriteria(criteria, 2 * HASH_BYTE_LENGTH - 1 - zeros);
+	Prove(blockToProve, criteria);
+}
+
 void ProofOfWork::Prove(Block* blockToProve, unsigned char* criteria)
 {
 	// Init Critera ints
@@ -79,6 +86,7 @@ void ProofOfWork::Prove(Block* blockToProve, unsigned char* criteria)
 			intToHexArray[pushCount] = 0;
 		}
 
+		hasher.init();
 		hasher.update(&data[0], data.size());
 		unsigned char hash[HASH_BYTE_LENGTH];
 		hasher.final(hash);
@@ -86,8 +94,19 @@ void ProofOfWork::Prove(Block* blockToProve, unsigned char* criteria)
 		bool isValidHash = IsHashLessThanCriteria(hash, criteria);
 		if (isValidHash)
 		{
+			/*
+			printf("\n\n*** Success *** \nTried %d times", i);
+			printf("\nCriteria: ");
+			PrintHash(criteria);
+			printf("\nHash    : ");
+			PrintHash(hash);
+			bool isValidHash = IsHashLessThanCriteria(hash, criteria);
+			*/
+
 			blockToProve->nonce = i;
+			blockToProve->PrintHash();
 			blockToProve->SetHash(hash);
+			blockToProve->PrintHash();
 			return;
 		}
 
@@ -101,6 +120,27 @@ void ProofOfWork::Prove(Block* blockToProve, unsigned char* criteria)
 // --------------------------------------------------
 // ------------------------- Private Method
 // --------------------------------------------------
+
+bool ProofOfWork::IsHashLessThanCriteria(unsigned char* hash, unsigned char* criteria)
+{
+	unsigned char* hashBlock = hash;
+	unsigned char* criteriaBlock = criteria;
+
+	for (int i = 0; i < HASH_BYTE_LENGTH ; i++)
+	{
+		if (*hashBlock != 0 || *criteriaBlock != 0)
+			if (*hashBlock < *criteriaBlock)
+				return true;
+			else
+				return false;
+		hashBlock++;
+		criteriaBlock++;
+	}
+	return false; // should never get here??
+}
+
+
+/*
 bool ProofOfWork::IsHashLessThanCriteria(unsigned char* hash, unsigned char* criteria)
 {
 	unsigned long long *hashBlock = (unsigned long long*) hash;
@@ -118,13 +158,33 @@ bool ProofOfWork::IsHashLessThanCriteria(unsigned char* hash, unsigned char* cri
 	}
 	//return false; // should never get here??
 }
+*/
 
 // ----- for debugging... can delete
 void ProofOfWork::PrintHash(unsigned char* hash)
 {
-	printf("Hash Value : ");
+	//printf("Hash Value : ");
 	for (int i = 0; i < HASH_BYTE_LENGTH; i++)
 	{
-		printf("%x", hash[i]);
+		printf("%02X", hash[i]);
+	}
+	printf("\n");
+}
+
+void ProofOfWork::SetCriteria(unsigned char* criteria, int digit)
+{
+	for (int i = 0; i < HASH_BYTE_LENGTH; i++)
+		criteria[i] = 0;
+
+	int result = digit & 1;
+	if (result == 0)	// even
+	{
+		//criteria[(digit / 2)] = 1;
+		criteria[HASH_BYTE_LENGTH - 1 - (digit / 2)] = 1;
+	}
+	else
+	{
+		//criteria[((digit - 1) / 2)] = 16;
+		criteria[HASH_BYTE_LENGTH - 1 - ((digit - 1) / 2)] = 16;
 	}
 }

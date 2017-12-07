@@ -14,6 +14,7 @@ protected:
 	static const unsigned int SHA224_256_BLOCK_SIZE = (512 / 8);
 public:
 	SHA256();
+	void init();
 	void update(const unsigned char *message, unsigned int len);
 	void final(unsigned char *digest);
 	static const unsigned int DIGEST_SIZE = (256 / 8);
@@ -25,7 +26,7 @@ protected:
 	unsigned char m_block[2 * SHA224_256_BLOCK_SIZE];
 	uint32 m_h[8];
 private:
-	void init();
+
 };
 
 //std::string sha256(std::string input);

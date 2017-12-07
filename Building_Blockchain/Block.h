@@ -6,6 +6,8 @@
 #include "Sha256.h"
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 #define HASH_BYTE_LENGTH 32
 using namespace std;
@@ -15,6 +17,7 @@ class Block
 public:
 	// ------------------------- Constructors
 	Block();
+	Block(ifstream* fileStream);
 	Block(string* dataToHash, unsigned char *prevBlockHash);
 	~Block();
 
@@ -35,6 +38,10 @@ public:
 	void PrintHash();
 
 	void PrintPrevHash();
+
+	void WriteToStream(ofstream* stream);
+
+	void ReadFromStream(ifstream* stream);
 
 protected:
 

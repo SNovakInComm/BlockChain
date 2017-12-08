@@ -9,6 +9,7 @@ class TransactionInput
 public:
 	// ------------------------- Constructors
 	TransactionInput();
+
 	~TransactionInput();
 
 	// ------------------------- Public Methods

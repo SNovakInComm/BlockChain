@@ -29,47 +29,27 @@ void ProofOfWork::Prove(Block* blockToProve, unsigned int zeros)
 
 void ProofOfWork::Prove(Block* blockToProve, unsigned char* criteria)
 {
-	// Init Critera ints
-
-	// loop
-	// ----- add number
-	// ----- calculate Hash
-	// ----- decompose into blocks
-	// ----- check validity
-
-
 	vector<unsigned char> data;
 
-
 	for (int i = 0; i < HASH_BYTE_LENGTH; i++)
-	{
 		data.push_back(blockToProve->prevBlockHash[i]);
-	}
 
 	for each(unsigned char c in *blockToProve->data)
-	{
 		data.push_back(c);
-	}
 
 	char intToHexArray[17];
-
 	sprintf_s(intToHexArray, "%llx", blockToProve->timestamp);
 
 	for (int i = 0; intToHexArray[i]; i++)
 	{
 		data.push_back(intToHexArray[i]);
-
-		// Set it back to zero.
 		intToHexArray[i] = 0;
 	}
 
 	sprintf_s(intToHexArray, "%x", criteria);
-
 	for (int i = 0; intToHexArray[i]; i++)
 	{
 		data.push_back(intToHexArray[i]);
-
-		// Set it back to zero.
 		intToHexArray[i] = 0;
 	}
 
@@ -94,15 +74,6 @@ void ProofOfWork::Prove(Block* blockToProve, unsigned char* criteria)
 		bool isValidHash = IsHashLessThanCriteria(hash, criteria);
 		if (isValidHash)
 		{
-			/*
-			printf("\n\n*** Success *** \nTried %d times", i);
-			printf("\nCriteria: ");
-			PrintHash(criteria);
-			printf("\nHash    : ");
-			PrintHash(hash);
-			bool isValidHash = IsHashLessThanCriteria(hash, criteria);
-			*/
-
 			blockToProve->nonce = i;
 			blockToProve->PrintHash();
 			blockToProve->SetHash(hash);

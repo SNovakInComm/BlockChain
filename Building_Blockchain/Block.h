@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "Transaction.h"
 
 #define HASH_BYTE_LENGTH 32
 using namespace std;
@@ -26,6 +27,7 @@ public:
 	// ------------------------- Public Members
 	bTimeStamp timestamp;
 	shared_ptr<string> data;
+	Transaction transaction;
 	unsigned char * prevBlockHash;
 	unsigned char hash[HASH_BYTE_LENGTH];
 	unsigned long long nonce;

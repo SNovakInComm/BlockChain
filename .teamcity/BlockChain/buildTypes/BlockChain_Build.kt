@@ -25,6 +25,7 @@ object BlockChain_Build : BuildType({
             projects = "Building_Blockchain.sln"
         }
         visualStudio {
+            enabled = false
             path = "Building_Blockchain.sln"
             version = VisualStudioStep.VisualStudioVersion.vs2013
             msBuildVersion = VisualStudioStep.MSBuildVersion.V12_0

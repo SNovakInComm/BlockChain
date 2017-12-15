@@ -20,6 +20,7 @@ object BlockChain_Build : BuildType({
 
     steps {
         dotnetRestore {
+            enabled = false
             projects = "Building_Blockchain.sln"
         }
         dotnetBuild {

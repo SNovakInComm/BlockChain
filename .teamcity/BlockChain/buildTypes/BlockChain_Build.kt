@@ -40,6 +40,11 @@ object BlockChain_Build : BuildType({
             mode = antFile {
             }
         }
+        dotnetBuild {
+            name = "Step1"
+            args = "echo Step1"
+            param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
+        }
     }
 
     triggers {

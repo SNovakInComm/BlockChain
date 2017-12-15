@@ -22,6 +22,9 @@ object BlockChain_Build : BuildType({
         dotnetRestore {
             projects = "Building_Blockchain.sln"
         }
+        dotnetRestore {
+            projects = "Building_Blockchain.sln"
+        }
         dotnetBuild {
             projects = "Building_Blockchain.sln"
         }

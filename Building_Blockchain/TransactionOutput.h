@@ -9,13 +9,16 @@ class TransactionOutput
 public:
 	// ------------------------- Constructors
 	TransactionOutput();
+
+	TransactionOutput(unsigned int Value, const char* scriptSig);
+
 	~TransactionOutput();
 
 	// ------------------------- Public Methods
 
 	// ------------------------- Public Members
 
-	int value;
+	unsigned int value;
 
 	string* scriptPublicSignaure;
 

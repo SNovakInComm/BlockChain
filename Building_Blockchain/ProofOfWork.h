@@ -24,5 +24,6 @@ public:
 private:
 	void SetCriteria(unsigned char* criteria, int digit);
 
+	void addString(vector<unsigned char>* data, string* stringToAdd);
 };
 

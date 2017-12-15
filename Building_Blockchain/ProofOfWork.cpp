@@ -30,12 +30,14 @@ void ProofOfWork::Prove(Block* blockToProve, unsigned int zeros)
 void ProofOfWork::Prove(Block* blockToProve, unsigned char* criteria)
 {
 	vector<unsigned char> data;
+	if (blockToProve->prevBlockHash != nullptr)
+	{
+		for (int i = 0; i < HASH_BYTE_LENGTH; i++)
+			data.push_back(blockToProve->prevBlockHash[i]);
+	}
 
-	for (int i = 0; i < HASH_BYTE_LENGTH; i++)
-		data.push_back(blockToProve->prevBlockHash[i]);
-
-	for each(unsigned char c in *blockToProve->data)
-		data.push_back(c);
+	for (unsigned int i = 0; i < blockToProve->transactions.size(); i++)
+		addString(&data, blockToProve->transactions[i]->ToString());
 
 	char intToHexArray[17];
 	sprintf_s(intToHexArray, "%llx", blockToProve->timestamp);
@@ -74,10 +76,12 @@ void ProofOfWork::Prove(Block* blockToProve, unsigned char* criteria)
 		bool isValidHash = IsHashLessThanCriteria(hash, criteria);
 		if (isValidHash)
 		{
+			//IsHashLessThanCriteria(hash, criteria);
 			blockToProve->nonce = i;
-			blockToProve->PrintHash();
+			//PrintHash(criteria);
+			//blockToProve->PrintHash();
 			blockToProve->SetHash(hash);
-			blockToProve->PrintHash();
+			//blockToProve->PrintHash();
 			return;
 		}
 
@@ -158,4 +162,10 @@ void ProofOfWork::SetCriteria(unsigned char* criteria, int digit)
 		//criteria[((digit - 1) / 2)] = 16;
 		criteria[HASH_BYTE_LENGTH - 1 - ((digit - 1) / 2)] = 16;
 	}
+}
+
+void ProofOfWork::addString(vector<unsigned char>* data, string* stringToAdd)
+{
+	for (unsigned int i = 0; i < stringToAdd->length(); i++)
+		data->push_back(stringToAdd->c_str()[i]);
 }

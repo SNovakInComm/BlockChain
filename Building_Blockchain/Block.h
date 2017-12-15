@@ -10,7 +10,6 @@
 #include <fstream>
 #include "Transaction.h"
 
-#define HASH_BYTE_LENGTH 32
 using namespace std;
 
 class Block
@@ -27,7 +26,7 @@ public:
 	// ------------------------- Public Members
 	bTimeStamp timestamp;
 	shared_ptr<string> data;
-	Transaction transaction;
+	vector<Transaction*> transactions;
 	unsigned char * prevBlockHash;
 	unsigned char hash[HASH_BYTE_LENGTH];
 	unsigned long long nonce;
@@ -45,8 +44,10 @@ public:
 
 	void ReadFromStream(ifstream* stream);
 
-protected:
+	void Mine(const char* Id);
 
+protected:
+	
 
 private:
 	

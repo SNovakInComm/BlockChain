@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockChain.h" />
+    <ClInclude Include="Miner.h" />
     <ClInclude Include="ProofOfWork.h" />
     <ClInclude Include="Sha256.h" />
     <ClInclude Include="stdafx.h" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockChain.cpp" />
+    <ClCompile Include="Miner.cpp" />
     <ClCompile Include="ProofOfWork.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="Sha256.cpp" />

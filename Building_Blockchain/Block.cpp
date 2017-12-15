@@ -55,20 +55,14 @@ void Block::SetHash()
 	vector<unsigned char> dataToHash;
 
 	if (prevBlockHash)
-	{
 		for (int i = 0; i < HASH_BYTE_LENGTH; i++)
-		{
 			dataToHash.push_back(prevBlockHash[i]);
-		}
-	}
+
 	for each(unsigned char c in *data)
-	{
 		dataToHash.push_back(c);
-	}
+
 	for each(unsigned char c in timeStampString)
-	{
 		dataToHash.push_back(c);
-	}
 
 	SHA256 hasher;
 
@@ -80,17 +74,13 @@ void Block::SetHash()
 void Block::SetHash(unsigned char* hash)
 {
 	for (int i = 0; i < HASH_BYTE_LENGTH; i++)
-	{
 		this->hash[i] = hash[i];
-	}
 }
 
 void Block::PrintHash()
 {
 	for (int i = 0; i < HASH_BYTE_LENGTH; i++)
-	{
 		printf("%02X", hash[i]);
-	}
 	printf("\n");
 }
 
@@ -99,15 +89,11 @@ void Block::PrintPrevHash()
 	if (prevBlockHash)
 	{
 		for (int i = 0; i < HASH_BYTE_LENGTH; i++)
-		{
 			printf("%02X", prevBlockHash[i]);
-		}
 		printf("\n");
 	}
 	else
-	{
 		printf("nullptr");
-	}
 }
 
 void Block::WriteToStream(ofstream* stream)
@@ -125,6 +111,14 @@ void Block::WriteToStream(ofstream* stream)
 	}
 	stream->write((char*)hash, HASH_BYTE_LENGTH);
 	stream->write((char*)&nonce, sizeof(nonce));
+
+	unsigned int numberOfTransactions = transactions.size();
+	stream->write((char*)&numberOfTransactions, sizeof(unsigned int));
+
+	for (unsigned int i = 0; i < transactions.size(); i++)
+	{
+		transactions[i]->WriteTransaction(stream);
+	}
 }
 
 void Block::ReadFromStream(ifstream* stream)
@@ -150,4 +144,13 @@ void Block::ReadFromStream(ifstream* stream)
 	}
 	stream->read((char*)hash, HASH_BYTE_LENGTH);
 	stream->read((char*)&nonce, sizeof(nonce));
+	
+	unsigned int numberOfTransactions;
+	stream->read((char*)&numberOfTransactions, sizeof(unsigned int));
+
+	for (unsigned int i = 0; i < numberOfTransactions; i++)
+	{
+		transactions.push_back(new Transaction(stream));
+	}
 }
+

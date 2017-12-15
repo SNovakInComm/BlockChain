@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <ctime>
+#include "Types.h"
+#include "Sha256.h"
 
 using namespace std;
 
@@ -10,13 +13,15 @@ public:
 	// ------------------------- Constructors
 	TransactionInput();
 
+	TransactionInput(unsigned int outputIndex, const char* signature);
+
 	~TransactionInput();
 
 	// ------------------------- Public Methods
 
-	char* Txid;
+	string* Txid;
 
-	int Vout;
+	unsigned int Vout;
 
 	string* ScriptSignatire;
 

@@ -5,6 +5,7 @@ import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.VisualStudioStep
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.ant
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.dotnetBuild
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.dotnetRestore
+import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.visualStudio
 import jetbrains.buildServer.configs.kotlin.v2017_2.triggers.vcs
 
@@ -44,6 +45,10 @@ object BlockChain_Build : BuildType({
             name = "Step1"
             args = "echo Step1"
             param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
+        }
+        script {
+            name = "1 (1)"
+            scriptContent = "Echo 1"
         }
     }
 

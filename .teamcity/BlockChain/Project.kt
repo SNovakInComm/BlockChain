@@ -20,11 +20,11 @@ object Project : Project({
 
     features {
         versionedSettings {
-            id = "PROJECT_EXT_5"
+            id = "PROJECT_EXT_6"
             mode = VersionedSettings.Mode.ENABLED
             buildSettingsMode = VersionedSettings.BuildSettingsMode.PREFER_SETTINGS_FROM_VCS
             rootExtId = BlockChain_HttpsGithubComSNovakInCommBlockChainRefsHeadsMaster.id
-            showChanges = true
+            showChanges = false
             settingsFormat = VersionedSettings.Format.KOTLIN
             storeSecureParamsOutsideOfVcs = true
         }

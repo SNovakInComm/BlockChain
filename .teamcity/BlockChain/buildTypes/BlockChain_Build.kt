@@ -2,7 +2,6 @@ package BlockChain.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2017_2.*
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.VisualStudioStep
-import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.ant
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.dotnetBuild
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.dotnetRestore
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.visualStudio
@@ -26,7 +25,6 @@ object BlockChain_Build : BuildType({
             projects = "Building_Blockchain.sln"
         }
         visualStudio {
-            enabled = false
             path = "Building_Blockchain.sln"
             version = VisualStudioStep.VisualStudioVersion.vs2013
             msBuildVersion = VisualStudioStep.MSBuildVersion.V12_0

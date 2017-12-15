@@ -8,6 +8,7 @@ object BlockChain_HttpsGithubComSNovakInCommBlockChainRefsHeadsMaster : GitVcsRo
     id = "BlockChain_HttpsGithubComSNovakInCommBlockChainRefsHeadsMaster"
     name = "https://github.com/SNovakInComm/BlockChain#refs/heads/master"
     url = "https://github.com/SNovakInComm/BlockChain"
+    branchSpec = "+:refs/heads/(*)"
     authMethod = password {
         userName = "SNovakInComm"
         password = "credentialsJSON:3285439e-a9d8-4d27-9a7d-5fd45dfd30f0"

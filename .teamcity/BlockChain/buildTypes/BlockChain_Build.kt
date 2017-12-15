@@ -24,6 +24,7 @@ object BlockChain_Build : BuildType({
             projects = "Building_Blockchain.sln"
         }
         dotnetBuild {
+            enabled = false
             projects = "Building_Blockchain.sln"
         }
         visualStudio {
@@ -35,6 +36,7 @@ object BlockChain_Build : BuildType({
         }
         ant {
             name = "1"
+            enabled = false
             mode = antFile {
             }
         }

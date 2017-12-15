@@ -50,6 +50,10 @@ object BlockChain_Build : BuildType({
             name = "1 (1)"
             scriptContent = "Echo 1"
         }
+        script {
+            name = "2"
+            scriptContent = "Echo 2"
+        }
     }
 
     triggers {

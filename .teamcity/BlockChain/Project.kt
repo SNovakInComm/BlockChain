@@ -20,7 +20,7 @@ object Project : Project({
 
     features {
         versionedSettings {
-            id = "PROJECT_EXT_6"
+            id = "PROJECT_EXT_7"
             mode = VersionedSettings.Mode.ENABLED
             buildSettingsMode = VersionedSettings.BuildSettingsMode.PREFER_SETTINGS_FROM_VCS
             rootExtId = BlockChain_HttpsGithubComSNovakInCommBlockChainRefsHeadsMaster.id

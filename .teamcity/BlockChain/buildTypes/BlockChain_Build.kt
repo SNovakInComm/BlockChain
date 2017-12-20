@@ -35,7 +35,7 @@ object BlockChain_Build : BuildType({
             msBuildToolsVersion = VisualStudioStep.MSBuildToolsVersion.V12_0
         }
         ant {
-            name = "1"
+            name = "2"
             enabled = false
             mode = antFile {
             }
